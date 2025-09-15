@@ -1,0 +1,66 @@
+{
+    "activationEvents": [
+        "workspaceContains:phpcs.xml",
+        "workspaceContains:phpcs.dist.xml"
+    ],
+    "author": "ctf0",
+    "categories": [
+        "Other"
+    ],
+    "contributes": {
+        "commands": [
+            {
+                "category": "PHP CodeSniffer",
+                "command": "phpCodeSniffer.analyze",
+                "title": "Analyze Project"
+            }
+        ],
+        "configuration": {
+            "properties": {
+                "phpCodeSniffer.command": {
+                    "default": "./vendor/bin/phpcs -d memory_limit=2048M -q --no-colors --report=json",
+                    "description": "PhpCodeSniffer command",
+                    "type": "string"
+                },
+                "phpCodeSniffer.phpCommand": {
+                    "default": "php",
+                    "description": "the php command path (any quotes needs to be escaped)",
+                    "type": "string"
+                },
+                "phpCodeSniffer.watchGlob": {
+                    "default": "**/phpcs*.xml",
+                    "description": "file glob to watch to trigger re-analyze when changed",
+                    "type": "string"
+                }
+            },
+            "title": "Php CodeSniffer"
+        }
+    },
+    "dependencies": {
+        "execa": "^9.6.0"
+    },
+    "description": "php codesniffer vscode portal",
+    "devDependencies": {
+        "@types/node": "^24.3.1",
+        "@types/vscode": "^1.90.0",
+        "esbuild": "^0.25.9",
+        "typescript": "^5.9.2"
+    },
+    "displayName": "Php CodeSniffer (New)",
+    "engines": {
+        "vscode": "^1.90.0"
+    },
+    "icon": "icon.png",
+    "main": "./out/main",
+    "name": "vscode-php-codesniffer-new",
+    "publisher": "ctf0",
+    "repository": "https://github.com/ctf0/vscode-php_cs",
+    "scripts": {
+        "esbuild": "npm run esbuild-base -- --sourcemap",
+        "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=out/main.js --external:vscode --format=cjs --platform=node",
+        "esbuild-watch": "npm run esbuild-base -- --sourcemap --watch",
+        "vscode:prepublish": "npm run esbuild-base -- --pure:console.log --minify",
+        "watch": "npm run esbuild"
+    },
+    "version": "0.0.1"
+}
